@@ -1,0 +1,6 @@
+CREATE PROCEDURE GetUserById
+@id INT
+AS
+BEGIN
+    SELECT * FROM users WHERE id = @id
+END

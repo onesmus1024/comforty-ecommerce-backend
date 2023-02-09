@@ -1,0 +1,16 @@
+CREATE TABLE Addresses (
+    id INT PRIMARY KEY IDENTITY(1000,1),
+    user_id INTEGER NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    state VARCHAR(255) NOT NULL,
+    zip_code VARCHAR(255) NOT NULL,
+    phone VARCHAR(255) NOT NULL,
+    CHECK (user_id > 0),
+    CHECK (address <> ''),
+    CHECK (city <> ''),
+    CHECK (state <> ''),
+    CHECK (zip_code <> ''),
+    CHECK (phone <> ''),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+);
