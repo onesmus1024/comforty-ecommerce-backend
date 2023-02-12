@@ -30,8 +30,7 @@ export const createProduct: RequestHandler = async (req: Request, res: Response)
 
 
         if (db.checkConnection() as unknown as boolean){
-
-            const insertedProduct:ProductModel = await db.exec("InsertOrUpdateProduct", {...product }) as unknown as ProductModel;
+            const insertedProduct = await db.exec("InsertOrUpdateProduct", {...product });
 
             if (insertedProduct) {
                 res.status(200).send(insertedProduct);
@@ -88,9 +87,9 @@ export const getProductById: RequestHandler = async (req: Request, res: Response
     try {
         const id = req.params.id;
         if (db.checkConnection() as unknown as boolean) {
-            const product: ProductModel = await db.exec("GetProductById", { id }) as unknown as ProductModel;
+            const product = await db.exec("GetProductById", { id });
             if (product) {
-                if (product.id) {
+                if (product.length > 0) {
                     res.status(200).send(product);
                 }
                 else {
@@ -114,9 +113,9 @@ export const deleteProduct: RequestHandler = async (req: Request, res: Response)
     try {
         const id = req.params.id;
         if (db.checkConnection() as unknown as boolean) {
-            const deletedProduct: ProductModel = await db.exec("DeleteProduct", { id }) as unknown as ProductModel;
+            const deletedProduct = await db.exec("DeleteProduct", { id });
             if (deletedProduct) {
-               if (deletedProduct.id){
+               if (deletedProduct.length > 0){
                 res.status(200).send(deletedProduct);
                }
                 else{
@@ -139,9 +138,9 @@ export const deleteProduct: RequestHandler = async (req: Request, res: Response)
 export const updateProduct: RequestHandler = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
-        const productToUpdate: ProductModel = await db.exec("GetProductById", { id }) as unknown as ProductModel;
+        const productToUpdate = await db.exec("GetProductById", { id });
         if (productToUpdate) {
-          if (productToUpdate.id){
+          if (productToUpdate.length > 0){
             const updated: ProductModel = { ...productToUpdate, ...req.body };
             const { error } = validateProduct(updated);
             if (error) return res.status(400).send(error.details[0].message);
@@ -175,7 +174,7 @@ export const getProductByCategory: RequestHandler = async (req: Request, res: Re
         const category_id = req.params.category_id;
         if (db.checkConnection() as unknown as boolean) {
             const products: ProductModel[] = await db.exec("GetProductByCategory", { category_id }) as unknown as ProductModel[];
-            if (products) {
+            if (products.length > 0) {
                 res.status(200).send(products);
             }
             else {
@@ -186,6 +185,8 @@ export const getProductByCategory: RequestHandler = async (req: Request, res: Re
             res.status(500).send({message:"Error getting products"});
         }
     } catch (error) {
+        console.log(error);
+        
         res.status(500).send({message:"Error getting products"});
     }
 }
@@ -195,18 +196,20 @@ export const getProductInTopLevelCategory: RequestHandler = async (req: Request,
     try {
         const category_id = req.params.category_id;
         if (db.checkConnection() as unknown as boolean) {
-            const products: ProductModel[] = await db.exec("GetProductInTopLevelCategory", { category_id }) as unknown as ProductModel[];
-            if (products) {
+            const products: ProductModel[] = await db.exec("GetProductInTopLevelCategory") as unknown as ProductModel[];
+            if (products.length > 0) {
                 res.status(200).send(products);
             }
             else {
-                res.status(500).send("Error getting products");
+                res.status(500).send("Error getting  products");
             }
         }
         else {
             res.status(500).send("Error getting products");
         }
     } catch (error) {
+        console.log(error);
+        
         res.status(500).send("Error getting products");
     }
 }

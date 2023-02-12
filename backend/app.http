@@ -3,8 +3,7 @@
 GET  http://localhost:6000/api/users
 
 ### 2. Get a user by id
-
-GET  http://localhost:6000/api/users/242860cc-3d90-47b2-8076-f15d66ec14a4
+GET  http://localhost:6000/api/users/8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8
 
 
 ### 3. Create a user
@@ -23,18 +22,18 @@ Content-Type: application/json
 
 ### 4. Update a user
 
-PUT  http://localhost:6000/api/users/242860cc-3d90-47b2-8076-f15d66ec14a4
+PUT  http://localhost:6000/api/users/8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8
 
 {
     "email": "ones@gmail.com",
     "phone":"0710383551",
-    "is_deleted":0
+    "is_deleted":"0"
 }
 
 
 ### 5. Delete a user
 
-DELETE  http://localhost:6000/api/users/a3da3907-b858-47a6-9301-c346a3939068
+DELETE  http://localhost:6000/api/users/8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8
 
 ### 6. Login a user
 
@@ -53,7 +52,7 @@ GET  http://localhost:6000/api/products
 
 
 ### 8. Get a product by id
-GET  http://localhost:6000/api/products/242860cc-3d90-47b2-8076-f15d66ec14a4
+GET  http://localhost:6000/api/products/1
 
 
 ### 9. Create a product
@@ -63,10 +62,9 @@ Content-Type: application/json
 
 {
     "name": "test",
-    "price": 100,
     "description":"test",
-    "image":"test",
-    "category_id": "127f0fab-2db5-4586-b189-0fc561c183ad",
+    "price": 100,
+    "category_id": "12857889-5b30-46e7-b76c-5547e6166499",
     "product_image_url":"test",
     "recently_added":"1",
     "featured":"1",
@@ -76,33 +74,34 @@ Content-Type: application/json
 
 ### 10. Update a product
 
-PUT  http://localhost:6000/api/products/242860cc-3d90-47b2-8076-f15d66ec14a4
+PUT  http://localhost:6000/api/products/1
 
 {
+    "id": "1",
     "name": "test",
-    "price": 100,
     "description":"test",
-    "image":"test",
-    "category_id": "242860cc-3d90-47b2-8076-f15d66ec14a4",
+    "price": 100,
+    "category_id": "12857889-5b30-46e7-b76c-5547e6166499",
     "product_image_url":"test",
     "recently_added":"1",
-    "featured":"1"
+    "featured":"1",
+    "is_deleted":"0"
 }
 
 
 ### 11. Delete a product
 
-DELETE  http://localhost:6000/api/products/242860cc-3d90-47b2-8076-f15d66ec14a4
+DELETE  http://localhost:6000/api/products/1
 
 
 ### 12. product by category
 
-GET  http://localhost:6000/api/products/category/3a8619fd-353f-4434-a207-e57bca8f4676
+GET  http://localhost:6000/api/products/category/12857889-5b30-46e7-b76c-5547e6166499
 
 
 ### 13. Get product that belong to a top level category
 
-GET  http://localhost:6000/api/products/category/top/3a8619fd-353f-4434-a207-e57bca8f4676
+GET  http://localhost:6000/api/products/category/top/level
 
 
 ### 14. Get all categories
@@ -115,19 +114,115 @@ POST  http://localhost:6000/api/categories
 Content-Type: application/json
 
 {
-    "name": "test",
+    "name": "sofa",
     "is_top_level": "1"
 }
 
 ### 16. Get a category by name
 
-GET  http://localhost:6000/api/categories/name/test
+GET  http://localhost:6000/api/categories/name/sofa
 
 
 ### 17. Get a category by id
 
-GET  http://localhost:6000/api/categories/127f0fab-2db5-4586-b189-0fc561c183ad
+GET  http://localhost:6000/api/categories/12857889-5b30-46e7-b76c-5547e6166499
 
 
 
+### cartItems API
+
+### 1. Get all cartItems
+
+
+### 2. Get a cartItem by user id
+
+GET  http://localhost:6000/api/cartitems/8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8
+
+
+### 3. Create a cartItem
+
+POST  http://localhost:6000/api/cartitems
+Content-Type: application/json
+
+{
+    "user_id": "8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8",
+    "product_id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "quantity": "1"
+}
+
+
+### 4. Update a cartItem
+
+PUT  http://localhost:6000/api/cartitems
+Content-Type: application/json
+
+{
+    "id":"7db1ec45-c49b-4c4b-8bc7-e5ca2b301e64",
+    "user_id": "8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8",
+    "product_id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "quantity": "1"
+}
+
+### 5. Delete a cartItem
+
+DELETE  http://localhost:6000/api/cartitems/7db1ec45-c49b-4c4b-8bc7-e5ca2b301e64
+
+
+### removeOrUpdateQuantity 
+
+put http://localhost:6000/api/cartitems/removeOrReduceQuantity/7db1ec45-c49b-4c4b-8bc7-e5ca2b301e64
+Content-Type: application/json
+
+{
+    "id": "4b523aa4-16ab-4c20-a58f-33ef70a04bb8",
+    "user_id": "8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8",
+    "product_id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "quantity": "1"
+}
+
+
+### 6. Get all orders
+
+GET  http://localhost:6000/api/orders
+
+
+### 7. Get an order by id
+
+GET  http://localhost:6000/api/orders/bbf7cc2d-e741-430f-acea-75dd40319ec5
+
+
+### 8. Create an order
+
+POST  http://localhost:6000/api/orders
+Content-Type: application/json
+
+
+{
+    "user_id": "8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8",
+    "is_paid": "0",
+    "is_delivered": "0",
+    "amount": "100"
+}
+
+
+### 9. Update an order
+
+PUT  http://localhost:6000/api/orders/a120ac52-2098-4ee8-936e-fbf627bc1fe7
+Content-Type: application/json
+
+{
+    "id": "a120ac52-2098-4ee8-936e-fbf627bc1fe7",
+    "user_id": "8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8",
+    "is_paid": "0",
+    "is_delivered": "0",
+    "amount": "100"
+}
+
+### 10. Delete an order
+
+DELETE  http://localhost:6000/api/orders/a120ac52-2098-4ee8-936e-fbf627bc1fe7
+
+### get by user id
+
+GET  http://localhost:6000/api/orders/user/8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8
 

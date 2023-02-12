@@ -19,8 +19,9 @@ import Joi from "joi";
 
 const validateCartItem = (cartItem: CartItemModel) => {
     const schema = Joi.object({
-        userId: Joi.string().min(5).max(255).required(),
-        productId: Joi.string().min(5).max(255).required(),
+        id: Joi.string().min(5).max(255).required(),
+        user_id: Joi.string().min(5).max(255).required(),
+        product_id: Joi.string().min(5).max(255).required(),
         quantity: Joi.number().min(1).required(),
     });
     

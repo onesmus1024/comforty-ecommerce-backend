@@ -10,8 +10,8 @@ productRouter.get("/", getAllProducts);
 productRouter.get("/:id", getProductById);
 productRouter.put("/:id", updateProduct);
 productRouter.delete("/:id", deleteProduct);
-productRouter.get("/category/:id", getProductByCategory);
-productRouter.get("/category/top/:id", getProductInTopLevelCategory);   
+productRouter.get("/category/:category_id", getProductByCategory);
+productRouter.get("/category/top/level", getProductInTopLevelCategory);   
 
 
 export default productRouter;

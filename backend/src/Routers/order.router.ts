@@ -4,11 +4,11 @@ import { createOrder,deleteOrder,getAllOrders,getOrderById,getOrdersByUserId,upd
 
 const orderRouter = Router();
 
-orderRouter.post("/", createOrder);
-orderRouter.get("/", getAllOrders);
+orderRouter.post("", createOrder);
+orderRouter.get("", getAllOrders);
 orderRouter.get("/:id", getOrderById);
 orderRouter.put("/:id", updateOrder);
 orderRouter.delete("/:id", deleteOrder);
-orderRouter.get("/user/:id", getOrdersByUserId);
+orderRouter.get("/user/:user_id", getOrdersByUserId);
 
 export default orderRouter;

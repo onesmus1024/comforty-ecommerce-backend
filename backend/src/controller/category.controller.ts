@@ -73,10 +73,10 @@ export const getCategoryByName: RequestHandler = async (req: Request, res: Respo
         if (db.checkConnection() as unknown as boolean) {
             console.log(req.params.name);
             
-            const category: CategoryModel = await db.exec("GetCategoryByName", { name: req.params.name as string }) as unknown as CategoryModel;
+            const category = await db.exec("GetCategoryByName", { name: req.params.name });
 
             if (category) {
-                if (category.name) {
+                if (category.length > 0) {
                     res.status(200).send(category);
                 }
                 else {
@@ -99,11 +99,13 @@ export const getCategoryByName: RequestHandler = async (req: Request, res: Respo
 export const getCategoryById: RequestHandler = async (req: Request, res: Response) => {
     try {
         if (db.checkConnection() as unknown as boolean) {
+            const id = req.params.id;
 
-            const category: CategoryModel = await db.exec("GetCategoryById", { id: req.params.id }) as unknown as CategoryModel;
-
+            const category = await db.exec("GetCategoryById", { id:id}) ;
+         
             if (category) {
-                if (category.name) {
+             
+                if (category.length > 0) {
                     res.status(200).send(category);
                 }
                 else {

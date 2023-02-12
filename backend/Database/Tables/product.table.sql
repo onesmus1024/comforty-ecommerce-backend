@@ -10,20 +10,12 @@ CREATE TABLE Products (
     product_image_url VARCHAR(255) NOT NULL,
     recently_added BIT NOT NULL DEFAULT 1,
     featured BIT NOT NULL DEFAULT 0,
+     is_deleted BIT NOT NULL DEFAULT 0,
     CHECK (name <> ''),
     CHECK (description <> ''),
     CHECK (price > 0),
-    CHECK (created_at <= GETDATE()),
-    CHECK (category_id > 0),
     CHECK (product_image_url <> ''),
     CHECK (recently_added IN (0,1)),
     CHECK (featured IN (0,1)),
     FOREIGN KEY (category_id) REFERENCES categories(id),
 );
-
--- add is_deleted column to products table
-
-USE [comfortyEcommerce]
-GO
-ALTER TABLE Products
-ADD is_deleted BIT NOT NULL DEFAULT 0;

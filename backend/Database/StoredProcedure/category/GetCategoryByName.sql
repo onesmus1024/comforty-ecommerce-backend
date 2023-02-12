@@ -6,3 +6,4 @@ AS
 BEGIN
     SELECT * FROM categories WHERE name = @name
 END
+

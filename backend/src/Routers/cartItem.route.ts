@@ -3,10 +3,10 @@ import { createCartItem, updateCartItem,deleteCartItem,getCartItemByUserId,remov
 
 const cartItemRouter = Router();
 
-cartItemRouter.post("/", createCartItem);
-cartItemRouter.put("/", updateCartItem);
+cartItemRouter.post("", createCartItem);
+cartItemRouter.put("", updateCartItem);
 cartItemRouter.delete("/:id", deleteCartItem);
-cartItemRouter.get("/:id", getCartItemByUserId);
+cartItemRouter.get("/:user_id", getCartItemByUserId);
 cartItemRouter.put("/removeOrReduceQuantity/:id", removeOrReduceQuantity);
 
 

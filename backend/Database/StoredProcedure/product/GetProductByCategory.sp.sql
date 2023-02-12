@@ -1,6 +1,6 @@
 USE [comfortyEcommerce]
 GO
-CREATE PROCEDURE GetProductsByCategory
+CREATE PROCEDURE GetProductByCategory
 @category_id VARCHAR(255)
 AS
 BEGIN

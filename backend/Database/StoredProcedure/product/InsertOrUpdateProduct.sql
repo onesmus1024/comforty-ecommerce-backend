@@ -19,7 +19,7 @@ BEGIN
     IF @id IS NULL
     BEGIN
         INSERT INTO products (id, name, description, price, created_at, category_id, product_image_url, recently_added, featured, is_deleted)
-        VALUES (NEWID(), @name, @description, @price, @created_at, @category_id, @product_image_url, @recently_added, @featured, @is_deleted)
+        VALUES (@id, @name, @description, @price, @created_at, @category_id, @product_image_url, @recently_added, @featured, @is_deleted)
     END
     ELSE
     BEGIN
@@ -27,3 +27,9 @@ BEGIN
     END
 END
 
+
+INSERT INTO products (id, name, description, price, created_at, category_id, product_image_url, recently_added, featured, is_deleted)
+VALUES ('12857889-5b30-46e7-b76c-5547e6166499', 'Product 1', 'Product 1 Description', 100, '2020-01-01', '12857889-5b30-46e7-b76c-5547e6166499', 'https://www.google.com', 1, 1, 0)
+
+
+SELECT * FROM products

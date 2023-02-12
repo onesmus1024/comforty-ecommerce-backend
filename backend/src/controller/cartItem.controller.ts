@@ -31,7 +31,8 @@ export const createCartItem: RequestHandler = async (req: Request, res: Response
             }
     
         } catch (error) {
-    
+            console.log(error);
+            
             res.status(500).send("Error creating cart item");
     
             
@@ -74,18 +75,12 @@ export const updateCartItem: RequestHandler = async (req: Request, res: Response
 
 export const removeOrReduceQuantity: RequestHandler = async (req: Request, res: Response) => {
     try {
-        const cartItem: CartItemModel = {
-            id: req.body.id,
-            product_id: req.body.product_id,
-            user_id: req.body.user_id,
-            quantity: req.body.quantity
-        }
 
-        const {error} = validateCartItem(cartItem);
-        if (error) return res.status(400).send(error.details[0].message);
+        const id = req.params.id;
 
+   
         if (db.checkConnection() as unknown as boolean) {
-            const updatedCartItem: CartItemModel = await db.exec("RemoveOrReduceQuantity", {...cartItem}) as unknown as CartItemModel;
+            const updatedCartItem: CartItemModel = await db.exec("RemoveOrReduceQuantity", {id:id}) as unknown as CartItemModel;
 
             if (updatedCartItem) {
                 res.status(200).send(updatedCartItem);
@@ -98,6 +93,9 @@ export const removeOrReduceQuantity: RequestHandler = async (req: Request, res: 
 
     } catch (error) {
 
+        console.log(error);
+        
+
         res.status(500).send("Error updating cart item");
 
 
@@ -108,7 +106,7 @@ export const getCartItemByUserId: RequestHandler = async (req: Request, res: Res
         const user_id: string = req.params.user_id;
     
         if (db.checkConnection() as unknown as boolean) {
-            const cartItems: CartItemModel[] = await db.exec("GetCartItemsByUserId", {user_id}) as unknown as CartItemModel[];
+            const cartItems: CartItemModel[] = await db.exec("GetCartItemByUserId", {user_id}) as unknown as CartItemModel[];
     
             if (cartItems) {
                 res.status(200).send(cartItems);
@@ -120,6 +118,9 @@ export const getCartItemByUserId: RequestHandler = async (req: Request, res: Res
         }
     
     } catch (error) {
+
+        console.log(error);
+        
     
         res.status(500).send("Error getting cart items");
     
