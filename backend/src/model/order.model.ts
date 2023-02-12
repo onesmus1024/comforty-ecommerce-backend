@@ -1,198 +1,37 @@
-import connection from "./db-con.js";
-import { Request, TYPES } from "tedious";
+// CREATE TABLE Orders (
+//     id VARCHAR(255) PRIMARY KEY,
+//     user_id VARCHAR(255) NOT NULL,
+//     created_at DATE NOT NULL DEFAULT GETDATE(),
+//     is_paid BIT NOT NULL DEFAULT 0,
+//     is_delivered BIT NOT NULL DEFAULT 0,
+//     amount DECIMAL(10,2) NOT NULL,
+//     CHECK (is_paid IN (0,1)),
+//     CHECK (is_delivered IN (0,1)),
+//     CHECK (amount > 0),
+//     CHECK (created_at <= GETDATE()),
+//     FOREIGN KEY (user_id) REFERENCES users(id),
+// );
 
-class orderModel {
 
-    static async GetAllOrdersRequest(res: any) {
-        let result: any[] = [];
-        let request = new Request("GetAllOrders", (err, rowCount) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(rowCount);
-            }
-        }
-        );
+// create a order model class to be used as a type for the order
 
-        request.on("row", (columns) => {
-            let order: any = {};
-            columns.forEach((column) => {
-                order[column.metadata.colName] = column.value;
-            }
-            );
-            result.push(order);
-        }
-        );
+class OrderModel {
+     id: string;
+     user_id: string;
+     created_at: string;
+     is_paid: string;
+     is_delivered: string;
+     amount: string;
 
-        request.on("doneProc", (rowCount, more, returnStatus, rows) => {
-            res.send(JSON.stringify(result));
-        }
-        );
-
-        connection.callProcedure(request);
-
+    constructor(id: string, user_id: string, created_at: string, is_paid: string, is_delivered: string, amount: string) {
+        this.id = id;
+        this.user_id = user_id;
+        this.created_at = created_at;
+        this.is_paid = is_paid;
+        this.is_delivered = is_delivered;
+        this.amount = amount;
     }
-
-    static async GetOrderByIdRequest(res: any, id: number) {
-        let result: any[] = [];
-
-        let request = new Request("GetOrderById", (err, rowCount) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(rowCount);
-            }
-        }
-        );
-        request.addParameter("id", TYPES.Int, id);
-        request.on("row", (columns) => {
-            let order: any = {};
-            columns.forEach((column) => {
-                order[column.metadata.colName] = column.value;
-            }
-            );
-            result.push(order);
-        }
-        );
-
-        request.on("doneProc", (rowCount, more, returnStatus, rows) => {
-            res.send(JSON.stringify(result));
-        }
-        );
-
-        connection.callProcedure(request);
-    }
-
-    static async GetOrderByUserIdRequest(res: any, user_id: number) {
-        let result: any[] = [];
-
-        let request = new Request("GetOrderByUserId", (err, rowCount) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(rowCount);
-            }
-        }
-        );
-        request.addParameter("user_id", TYPES.Int, user_id);
-        request.on("row", (columns) => {
-            let order: any = {};
-            columns.forEach((column) => {
-                order[column.metadata.colName] = column.value;
-            }
-            );
-            result.push(order);
-        }
-        );
-
-        request.on("doneProc", (rowCount, more, returnStatus, rows) => {
-            res.send(JSON.stringify(result));
-        }
-        );
-
-        connection.callProcedure(request);
-    }
-
-    static async updateOrderRequest(res: any, id: number, order: any) {
-        let result: any[] = [];
-
-        let request = new Request("UpdateOrder", (err, rowCount) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(rowCount);
-            }
-        }
-        );
-        request.addParameter("id", TYPES.Int, id);
-        request.addParameter("user_id", TYPES.Int, order.user_id);
-        request.addParameter("created_at", TYPES.Date, order.created_at);
-        request.addParameter("is_paid", TYPES.Bit, order.is_paid);
-        request.addParameter("is_delivered", TYPES.Bit, order.is_delivered);
-        request.addParameter("amount", TYPES.Decimal, order.amount);
-
-        request.on("row", (columns) => {
-            let order: any = {};
-            columns.forEach((column) => {
-                order[column.metadata.colName] = column.value;
-            }
-            );
-            result.push(order);
-        }
-        );
-
-        request.on("doneProc", (rowCount, more, returnStatus, rows) => {
-            res.send(JSON.stringify(result));
-        }
-        );
-
-        connection.callProcedure(request);
-
-    }
-
-    static async deleteOrderRequest(res: any, id: number) {
-        let result: any[] = [];
-
-        let request = new Request("DeleteOrder", (err, rowCount) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(rowCount);
-            }
-        }
-        );
-        request.addParameter("id", TYPES.Int, id);
-        request.on("row", (columns) => {
-            let order: any = {};
-            columns.forEach((column) => {
-                order[column.metadata.colName] = column.value;
-            }
-            );
-            result.push(order);
-        }
-        );
-
-        request.on("doneProc", (rowCount, more, returnStatus, rows) => {
-            res.send(JSON.stringify(result));
-        }
-        );
-
-        connection.callProcedure(request);
-    }
-
-    static async createOrderRequest(res: any, order: any) {
-        let result: any[] = [];
-
-        let request = new Request("CreateOrder", (err, rowCount) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(rowCount);
-            }
-        }
-        );
-        request.addParameter("user_id", TYPES.Int, order.user_id);
-        request.addParameter("amount", TYPES.Decimal, order.amount);
-
-        request.on("row", (columns) => {
-            let order: any = {};
-            columns.forEach((column) => {
-                order[column.metadata.colName] = column.value;
-            }
-            );
-            result.push(order);
-        }
-        );
-
-        request.on("doneProc", (rowCount, more, returnStatus, rows) => {
-            res.send(JSON.stringify(result));
-        }
-        );
-
-        connection.callProcedure(request);
-    }
-
 }
 
 
-export default orderModel;
+export default OrderModel;

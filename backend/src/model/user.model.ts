@@ -1,173 +1,43 @@
-import connection from "./db-con.js";
-import { Request, TYPES } from "tedious";
+// CREATE TABLE Users (
+//     id VARCHAR PRIMARY KEY, 
+//     email VARCHAR(255) NOT NULL,
+//     password VARCHAR(255) NOT NULL,
+//     created_at DATE NOT NULL DEFAULT GETDATE(),
+//     is_admin BIT NOT NULL DEFAULT 0,
+//     is_deleted BIT NOT NULL DEFAULT 1,
+//     phone VARCHAR(255) NOT NULL,
+//     is_sent BIT NOT NULL DEFAULT 0,
+//     UNIQUE (email),
+//     CHECK (is_admin IN (0,1)),
+//     CHECK (email <> ''),
+//     CHECK (password <> ''),
+//     CHECK (created_at <= GETDATE()),
+// );
 
 
+// create a user model class to be used as a type for the user
 
-class userModel{
-    
-        static async GetAllUsersRequest(res: any){
-            let result: any[] = [];
-            let request = new Request("GetAllUsers", (err, rowCount) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(rowCount);
-                }
-            }
-            );
-        
-            request.on("row", (columns) => {
-                let user: any = {};
-                columns.forEach((column) => {
-                    user[column.metadata.colName] = column.value;
-                }
-                );
-                result.push(user);
-            }
-            );
-        
-            request.on("doneProc", (rowCount, more, returnStatus, rows) => {
-                res.send(JSON.stringify(result));
-            }
-            );
-        
-         
-        connection.callProcedure(request);
-            
-        }
+class UserModel {
+     id: string;
+     email: string;
+     password: string;
+     created_at: string;
+     is_admin: string;
+     is_deleted: string;
+     phone: string;
+     is_sent: string;
 
-    static async GetUserByIdRequest(res: any, id: number){
-        let result: any[] = [];
-    
-        let request = new Request("GetUserById", (err, rowCount) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(rowCount);
-            }
-        }
-        );
-        // add parameters for the stored procedure
-        request.addParameter("id", TYPES.Int, id);
-        request.on("row", (columns) => {
-            let user: any = {};
-            columns.forEach((column) => {
-                user[column.metadata.colName] = column.value;
-            }
-            );
-            result.push(user);
-        }
-        );
-
-        request.on("doneProc", (rowCount, more, returnStatus, rows) => {
-            // return json result
-            res.send(JSON.stringify(result));
-        }
-        );
-
-        connection.callProcedure(request);
-
-
-    }
-
-    static async GetUserByEmailRequest(res: any, email: string){
-        let result: any[] = [];
-        let request = new Request("GetUserByEmail", (err, rowCount) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(rowCount);
-                
-            }
-        }
-        );
-        request.addParameter("email", TYPES.VarChar, email);
-        request.on("row", (columns) => {
-            let user: any = {};
-            columns.forEach((column) => {
-                user[column.metadata.colName] = column.value;
-            }
-            );
-            result.push(user);
-        }
-        );
-    
-        request.on("doneProc", (rowCount, more, returnStatus, rows) => {
-            // return json result
-            res.send(JSON.stringify(result));
-        }
-        );
-
-        connection.callProcedure(request);
-    }
-
-    // create a new user
-    static async AddUserRequest(res: any, user: any){
-        let result: any[] = [];
-        let request = new Request("CreateUser", (err, rowCount) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send(JSON.stringify(result));
-            }
-        }
-        );
-        request.addParameter("email", TYPES.VarChar, user.email);
-        request.addParameter("password", TYPES.VarChar, user.password);
-        request.on("row", (columns) => {
-            let user: any = {};
-            columns.forEach((column) => {
-                user[column.metadata.colName] = column.value;
-            }
-            );
-            result.push(user);
-        }
-        );
-    
-        request.on("doneProc", (rowCount, more, returnStatus, rows) => {
-            // return json result
-            res.send(JSON.stringify(result));
-        }
-        );
-
-        connection.callProcedure(request);   
-    }
-
-    // update a user
-    static async UpdateUserRequest(res: any, user: any){
-        // update user
-        let result: any[] = [];
-        let request = new Request("UpdateUser", (err, rowCount) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.send(JSON.stringify(result));
-            }
-        }
-        );
-        request.addParameter("id", TYPES.Int, user.id);
-        request.addParameter("email", TYPES.VarChar, user.email);
-        request.addParameter("password", TYPES.VarChar, user.password);
-        request.on("row", (columns) => {
-            let user: any = {};
-            columns.forEach((column) => {
-                user[column.metadata.colName] = column.value;
-            }
-            );
-            result.push(user);
-        }
-        );
-
-        request.on("doneProc", (rowCount, more, returnStatus, rows) => {
-            // return json result
-            res.send(JSON.stringify(result));
-        }
-        );
-
-        connection.callProcedure(request);
+    constructor(id: string, email: string, password: string, created_at: string, is_admin:string, is_deleted: string, phone: string, is_sent: string) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.created_at = created_at;
+        this.is_admin = is_admin;
+        this.is_deleted = is_deleted;
+        this.phone = phone;
+        this.is_sent = is_sent;
     }
 }
 
 
-
-export default userModel;
+export default UserModel;

@@ -1,19 +1,24 @@
+import dotenv from 'dotenv'
+import path from 'path'
 
-let config = {
-    server : 'localhost',
-    authentication: {
-        type: 'default',
-        options: {
-            userName: 'sa',
-            password: 'on07mawa'
-        }
+dotenv.config({path:path.resolve(__dirname,'../../.env')})
+
+
+// database config
+const DBconfig = {
+    user: process.env.DBUSER,
+    password: process.env.DBPASS,
+    database: process.env.DBNAME,
+    server: 'localhost',
+    pool: {
+      max: 10,
+      min: 0,
+      idleTimeoutMillis: 30000
     },
     options: {
-        database: 'ecommerce',
-        encrypt: true,
-        trustServerCertificate: true,
-        
+      encrypt: true, 
+      trustServerCertificate: true,
     }
-};
+  }
 
-export default config;
+  export default DBconfig

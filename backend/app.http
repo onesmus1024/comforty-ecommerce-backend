@@ -1,3 +1,133 @@
 
+### 1. Get all users
+GET  http://localhost:6000/api/users
 
-GET  http://localhost:3000/api/users
+### 2. Get a user by id
+
+GET  http://localhost:6000/api/users/242860cc-3d90-47b2-8076-f15d66ec14a4
+
+
+### 3. Create a user
+
+POST  http://localhost:6000/api/users/register
+Content-Type: application/json
+
+
+
+{
+    "email": "test@gmail.com",
+    "password": "123456",
+    "phone":"0710383551"
+}
+
+
+### 4. Update a user
+
+PUT  http://localhost:6000/api/users/242860cc-3d90-47b2-8076-f15d66ec14a4
+
+{
+    "email": "ones@gmail.com",
+    "phone":"0710383551",
+    "is_deleted":0
+}
+
+
+### 5. Delete a user
+
+DELETE  http://localhost:6000/api/users/a3da3907-b858-47a6-9301-c346a3939068
+
+### 6. Login a user
+
+POST  http://localhost:6000/api/users/login
+Content-Type: application/json
+
+{
+   "email": "test@gmail.com",
+    "password": "123456"
+}
+
+
+### 7. Get all products
+
+GET  http://localhost:6000/api/products
+
+
+### 8. Get a product by id
+GET  http://localhost:6000/api/products/242860cc-3d90-47b2-8076-f15d66ec14a4
+
+
+### 9. Create a product
+
+POST  http://localhost:6000/api/products
+Content-Type: application/json
+
+{
+    "name": "test",
+    "price": 100,
+    "description":"test",
+    "image":"test",
+    "category_id": "127f0fab-2db5-4586-b189-0fc561c183ad",
+    "product_image_url":"test",
+    "recently_added":"1",
+    "featured":"1",
+    "is_deleted":"0"
+
+}
+
+### 10. Update a product
+
+PUT  http://localhost:6000/api/products/242860cc-3d90-47b2-8076-f15d66ec14a4
+
+{
+    "name": "test",
+    "price": 100,
+    "description":"test",
+    "image":"test",
+    "category_id": "242860cc-3d90-47b2-8076-f15d66ec14a4",
+    "product_image_url":"test",
+    "recently_added":"1",
+    "featured":"1"
+}
+
+
+### 11. Delete a product
+
+DELETE  http://localhost:6000/api/products/242860cc-3d90-47b2-8076-f15d66ec14a4
+
+
+### 12. product by category
+
+GET  http://localhost:6000/api/products/category/3a8619fd-353f-4434-a207-e57bca8f4676
+
+
+### 13. Get product that belong to a top level category
+
+GET  http://localhost:6000/api/products/category/top/3a8619fd-353f-4434-a207-e57bca8f4676
+
+
+### 14. Get all categories
+
+GET  http://localhost:6000/api/categories
+
+### 15. create a category
+
+POST  http://localhost:6000/api/categories
+Content-Type: application/json
+
+{
+    "name": "test",
+    "is_top_level": "1"
+}
+
+### 16. Get a category by name
+
+GET  http://localhost:6000/api/categories/name/test
+
+
+### 17. Get a category by id
+
+GET  http://localhost:6000/api/categories/127f0fab-2db5-4586-b189-0fc561c183ad
+
+
+
+

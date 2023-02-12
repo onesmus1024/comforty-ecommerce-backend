@@ -1,16 +1,14 @@
 import { Router } from "express";
-import { getAllOrders, getOrderById, createOrder, updateOrder, deleteOrder, getOrderByUserId } from "../controller/order.controller.js";
 
+import { createOrder,deleteOrder,getAllOrders,getOrderById,getOrdersByUserId,updateOrder } from "../controller/order.controller";
 
 const orderRouter = Router();
 
-orderRouter.get("", getAllOrders);
+orderRouter.post("/", createOrder);
+orderRouter.get("/", getAllOrders);
 orderRouter.get("/:id", getOrderById);
-orderRouter.post("", createOrder);
-orderRouter.put("/update/:id", updateOrder);
-orderRouter.delete("/delete/:id", deleteOrder);
-orderRouter.get("/user/:id", getOrderByUserId);
-
-
+orderRouter.put("/:id", updateOrder);
+orderRouter.delete("/:id", deleteOrder);
+orderRouter.get("/user/:id", getOrdersByUserId);
 
 export default orderRouter;
