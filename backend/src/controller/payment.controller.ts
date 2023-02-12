@@ -14,8 +14,8 @@ export const createPayment: RequestHandler = async (req: Request, res: Response)
             user_id: req.body.user_id,
             order_id: req.body.order_id,
             amount: req.body.amount,
-            paymentMethod_id: req.body.paymentMethod_id,
-            created_at: new Date().toISOString()
+            payment_method_id: req.body.payment_method_id,
+    
         }
 
         const {error} = validatePayment(payment);
@@ -35,6 +35,9 @@ export const createPayment: RequestHandler = async (req: Request, res: Response)
 
     } catch (error) {
 
+        console.log(error);
+        
+
         res.status(500).send("Error creating payment");
 
         
@@ -53,8 +56,7 @@ export const updatePayment: RequestHandler = async (req: Request, res: Response)
             user_id: req.body.user_id,
             order_id: req.body.order_id,
             amount: req.body.amount,
-            paymentMethod_id: req.body.paymentMethod_id,
-            created_at: new Date().toISOString()
+            payment_method_id: req.body.payment_method_id
         }
 
         const {error} = validatePayment(payment);

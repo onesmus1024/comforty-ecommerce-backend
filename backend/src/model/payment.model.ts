@@ -19,16 +19,14 @@ class PaymentModel {
      user_id: string;
      order_id: string;
      amount: string;
-     paymentMethod_id: string;
-     created_at: string;
+     payment_method_id: string;
 
-    constructor(id: string, user_id: string, order_id: string, amount: string, paymentMethod_id: string, created_at: string) {
+    constructor(id: string, user_id: string, order_id: string, amount: string, payment_method_id: string, created_at: string) {
         this.id = id;
         this.user_id = user_id;
         this.order_id = order_id;
         this.amount = amount;
-        this.paymentMethod_id = paymentMethod_id;
-        this.created_at = created_at;
+        this.payment_method_id = payment_method_id;
     }
 }
 

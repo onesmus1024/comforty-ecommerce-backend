@@ -107,6 +107,7 @@ export const deleteReview: RequestHandler = async (req: Request, res: Response) 
 
     } catch (error) {
 
+        console.log(error);
         res.status(500).send("Error deleting review");
 
         
@@ -118,10 +119,10 @@ export const deleteReview: RequestHandler = async (req: Request, res: Response) 
 
 export const getReviewByProductId: RequestHandler = async (req: Request, res: Response) => {
     try {
-        const id = req.params.id;
+        const product_id = req.params.product_id;
 
         if (db.checkConnection() as unknown as boolean) {
-            const reviews: ReviewModel[] = await db.exec("GetReviewByProductId", {id}) as unknown as ReviewModel[];
+            const reviews: ReviewModel[] = await db.exec("GetReviewByProductId", {product_id}) as unknown as ReviewModel[];
 
             if (reviews) {
                 res.status(200).send(reviews);
@@ -136,6 +137,8 @@ export const getReviewByProductId: RequestHandler = async (req: Request, res: Re
         }
 
     } catch (error) {
+
+        console.log(error);
 
         res.status(500).send("Error getting reviews");
 

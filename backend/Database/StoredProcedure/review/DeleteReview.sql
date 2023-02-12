@@ -5,4 +5,6 @@ CREATE PROCEDURE DeleteReview
 AS
 BEGIN
     UPDATE reviews SET is_deleted = 1 WHERE id = @id
+    SELECT * FROM reviews WHERE id = @id
 END
+

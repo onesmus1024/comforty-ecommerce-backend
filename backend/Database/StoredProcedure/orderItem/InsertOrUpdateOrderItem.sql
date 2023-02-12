@@ -10,8 +10,8 @@ BEGIN
     IF @id IS NULL
     BEGIN
         INSERT INTO order_items (id, order_id, product_id, quantity)
-        VALUES (NEWID(), @order_id, @product_id, @quantity)
-        SELECT * FROM order_items WHERE id = SCOPE_IDENTITY()
+        VALUES (@id, @order_id, @product_id, @quantity)
+        SELECT * FROM order_items WHERE id = @id
     END
     ELSE
     BEGIN
@@ -19,3 +19,4 @@ BEGIN
         SELECT * FROM order_items WHERE id = @id
     END
 END
+

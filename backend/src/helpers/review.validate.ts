@@ -6,8 +6,10 @@ const validateReview = (review: ReviewModel) => {
         id: Joi.string().required(),
         user_id: Joi.string().required(),
         product_id: Joi.string().required(),
-        rating: Joi.number().required(),
-        comment: Joi.string().required(),
+        rating: Joi.string().required(),
+        review: Joi.string().required(),
+        is_deleted: Joi.string().required(),
+        created_at: Joi.string().required()
     });
 
     return schema.validate(review);

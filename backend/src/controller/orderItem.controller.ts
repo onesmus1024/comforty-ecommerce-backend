@@ -6,9 +6,7 @@ import OrderItemModel from '../model/orderItem.model';
 
 export const createOrderItem: RequestHandler = async (req: Request, res: Response) => {
     try {
-        const {error} = validateOrderItem(req.body);
-        if (error) return res.status(400).send(error.details[0].message);
-
+        
         const orderItem: OrderItemModel = {
             id: uuidv4() as string,
             order_id: req.body.order_id,
@@ -16,6 +14,10 @@ export const createOrderItem: RequestHandler = async (req: Request, res: Respons
             quantity: req.body.quantity,
 
         }
+
+        const {error} = validateOrderItem(orderItem);
+        if (error) return res.status(400).send(error.details[0].message);
+
 
         if (db.checkConnection() as unknown as boolean) {
                 

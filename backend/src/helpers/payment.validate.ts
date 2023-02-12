@@ -8,8 +8,7 @@ const validatePayment = (payment: PaymentModel) => {
         user_id: Joi.string().required(),
         order_id: Joi.string().required(),
         amount: Joi.number().required(),
-        paymentMethod_id: Joi.string().required(),
-        created_at: Joi.string().required(),
+        payment_method_id: Joi.string().required(),
     });
 
     return schema.validate(payment);

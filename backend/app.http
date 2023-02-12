@@ -14,7 +14,7 @@ Content-Type: application/json
 
 
 {
-    "email": "test@gmail.com",
+    "email": "test1@gmail.com",
     "password": "123456",
     "phone":"0710383551"
 }
@@ -33,7 +33,7 @@ PUT  http://localhost:6000/api/users/8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8
 
 ### 5. Delete a user
 
-DELETE  http://localhost:6000/api/users/8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8
+DELETE  http://localhost:6000/api/users/3711d8fc-0fed-49c4-a019-f03c862ecf92
 
 ### 6. Login a user
 
@@ -146,7 +146,7 @@ Content-Type: application/json
 
 {
     "user_id": "8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8",
-    "product_id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "product_id": "1",
     "quantity": "1"
 }
 
@@ -157,9 +157,9 @@ PUT  http://localhost:6000/api/cartitems
 Content-Type: application/json
 
 {
-    "id":"7db1ec45-c49b-4c4b-8bc7-e5ca2b301e64",
+    "id":"7db1ec45-c49b-4c4b-8bc7-e5ca2b3b01eb64",
     "user_id": "8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8",
-    "product_id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "product_id": "12857889-5b30-46e7-b76c-554n7e6166499",
     "quantity": "1"
 }
 
@@ -226,3 +226,145 @@ DELETE  http://localhost:6000/api/orders/a120ac52-2098-4ee8-936e-fbf627bc1fe7
 
 GET  http://localhost:6000/api/orders/user/8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8
 
+
+
+#### create review
+
+POST  http://localhost:6000/api/reviews
+Content-Type: application/json
+
+{
+    "user_id": "8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8",
+    "product_id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "rating": "5",
+    "review": "test",
+    "is_deleted": "0"
+}
+
+#### get review by product id
+
+GET  http://localhost:6000/api/reviews/product/12857889-5b30-46e7-b76c-5547e6166499
+
+
+#### update review
+
+PUT  http://localhost:6000/api/reviews
+Content-Type: application/json
+
+{
+    "id": "6ab4a8cf-890d-4fda-bef1-be399885cf5a",
+    "user_id": "8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8",
+    "product_id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "rating": "5",
+    "review": "test",
+    "is_deleted": "0"
+}
+
+#### delete review
+
+DELETE  http://localhost:6000/api/reviews/6ab4a8cf-890d-4fda-bef1-be399885cf5a
+
+
+
+#### payment method api
+
+#### get all payment methods
+
+GET  http://localhost:6000/api/paymentmethods
+
+
+#### get payment method by id
+
+GET  http://localhost:6000/api/paymentmethods/12857889-5b30-46e7-b76c-5547e6166499
+
+
+
+#### create payment method
+
+POST  http://localhost:6000/api/paymentmethods
+Content-Type: application/json
+
+{
+    "name": "M-pesa",
+    "description": "M-pesa payment method"
+
+}
+
+
+#### update payment method
+
+PUT  http://localhost:6000/api/paymentmethods
+Content-Type: application/json
+
+{
+    "id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "name": "M-pesa",
+    "description": "M-pesa payment method"
+
+}
+
+
+#### get payment method by id
+
+GET  http://localhost:6000/api/paymentmethods/12857889-5b30-46e7-b76c-5547e6166499
+
+
+### patymeent api
+
+#### create payment
+
+POST  http://localhost:6000/api/payments
+Content-Type: application/json
+
+{
+    "user_id": "8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8",
+    "order_id": "bbf7cc2d-e741-430f-acea-75dd40319ec5",
+    "payment_method_id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "amount": "100"
+}
+
+
+#### update payment
+
+PUT  http://localhost:6000/api/payments
+Content-Type: application/json
+
+{
+    "id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "user_id": "8fe3f01c-5d55-41ca-93ef-a84dcf27c2f8",
+    "order_id": "bbf7cc2d-e741-430f-acea-75dd40319ec5",
+    "payment_method_id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "amount": "100"
+}
+
+
+### order item api
+
+#### create order item
+
+POST  http://localhost:6000/api/orderitems
+Content-Type: application/json
+
+{
+    "order_id": "bbf7cc2d-e741-430f-acea-75dd40319ec5",
+    "product_id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "quantity": "1"
+}
+
+### update order item
+
+
+PUT  http://localhost:6000/api/orderitems/12857889-5b30-46e7-b76c-5547e6166499
+Content-Type: application/json
+
+{
+    "id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "order_id": "bbf7cc2d-e741-430f-acea-75dd40319ec5",
+    "product_id": "12857889-5b30-46e7-b76c-5547e6166499",
+    "quantity": "1"
+}
+
+
+#### get order item by id
+
+GET  http://localhost:6000/api/orderitems/12857889-5b30-46e7-b76c-5547e6166499

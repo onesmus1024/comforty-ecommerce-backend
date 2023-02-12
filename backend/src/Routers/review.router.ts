@@ -6,7 +6,7 @@ const reviewRouter = Router();
 reviewRouter.post("/", createReview);
 reviewRouter.put("/", updateReview);
 reviewRouter.delete("/:id", deleteReview);
-reviewRouter.get("/:id", getReviewByProductId);
+reviewRouter.get("/product/:product_id", getReviewByProductId);
 
 export default reviewRouter;
 

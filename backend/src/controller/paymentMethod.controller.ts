@@ -76,10 +76,15 @@ export const updatePaymentMethod: RequestHandler = async (req: Request, res: Res
 export const getPaymentMethodById: RequestHandler = async (req: Request, res: Response) => {
     try {
         if (db.checkConnection() as unknown as boolean) {
-            const paymentMethod: PaymentMethodModel = await db.exec("GetPaymentMethodById", {id: req.params.id}) as unknown as PaymentMethodModel;
+            const paymentMethod = await db.exec("GetPaymentMethodById", {id: req.params.id}) ;
 
             if (paymentMethod) {
-                res.status(200).send(paymentMethod);
+                if (paymentMethod.length > 0) {
+                    res.status(200).send(paymentMethod);
+                }
+                else {
+                    res.status(200).send("No payment method found");
+                }
             }
             else {
                 res.status(500).send("Error getting payment method");
@@ -102,7 +107,13 @@ export const getAllPaymentMethods: RequestHandler = async (req: Request, res: Re
             const paymentMethods: PaymentMethodModel[] = await db.exec("GetAllPaymentMethod", {}) as unknown as PaymentMethodModel[];
 
             if (paymentMethods) {
-                res.status(200).send(paymentMethods);
+                if (paymentMethods.length > 0) {
+                    res.status(200).send(paymentMethods);
+                }
+                else {
+                    res.status(200).send("No payment methods found");
+                }
+                
             }
             else {
                 res.status(500).send("Error getting payment methods");
